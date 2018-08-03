@@ -63,8 +63,8 @@ class SupplierController extends Controller
     {
         $supplier = Supplier::find($id);
         
-        // dd($supplier->name);
-        return view('staff.supplier.edit', ['supplier' => $supplier]);
+        //  dd($supplier->name);
+         return view('staff.supplier.edit', ['supplier' => $supplier]);
     }
 
     /**

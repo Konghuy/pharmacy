@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <div class="card">
                 <form id="registerFormValidation"  action="/supplier/{{$supplier->id}}" method="PUT" novalidate="">
-                        {{csrf_field()}}
+            
                         <div class="card-header">
                             <h4 class="card-title ">
                                 Edit Supplier
