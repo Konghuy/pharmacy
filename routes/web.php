@@ -37,6 +37,8 @@ Route::resource('role','RoleController');
 
 Route::resource('category','CategoryController');
 
+Route::resource('package','PackageController');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

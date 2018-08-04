@@ -89,7 +89,7 @@
                         </a>
                     </li>
                     <li class=@yield('pk')>
-                        <a href="/packages">
+                        <a href="/package">
                             <span class="sidebar-mini">PK</span>
                             <span class="sidebar-normal">Packages</span>
                         </a>
