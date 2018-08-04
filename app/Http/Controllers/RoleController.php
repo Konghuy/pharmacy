@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Supplier;
+use App\Roles;
 
-class SupplierController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $supplier = Supplier::all();
-        return view('staff.supplier.index', ['suppliers' => $supplier]);
+        $role = Roles::all();
+        return view('staff.role.index', ['roles' => $role]);
     }
 
     /**
@@ -25,7 +25,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        return view('staff.supplier.create');
+        return view('staff.role.create');
     }
 
     /**
@@ -36,9 +36,9 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        $supplier = new Supplier();
-        $supplier->create($request->all());
-        return redirect('/supplier');
+        $role = new Roles();
+        $role->create($request->all());
+        return redirect('/role');
     }
 
     /**
@@ -49,8 +49,7 @@ class SupplierController extends Controller
      */
     public function show($id)
     {
-        $supplier = Supplier::find($id);
-        return view('staff.supplier.show', ['supplier' => $supplier]);
+        //
     }
 
     /**
@@ -61,10 +60,10 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
-        $supplier = Supplier::find($id);
+        $role = Roles::find($id);
         
         //  dd($supplier->name);
-         return view('staff.supplier.edit', ['supplier' => $supplier]);
+         return view('staff.role.edit', ['role' => $role]);
     }
 
     /**
@@ -76,10 +75,10 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $supplier = Supplier::find($id);
+        $role = Roles::find($id);
 
-        $supplier->update($request->all());
-        return redirect('/supplier');
+        $role->update($request->all());
+        return redirect('/role');
     }
 
     /**

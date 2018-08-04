@@ -33,6 +33,8 @@ Route::get('/showUser', function () {
 // Route::get('/supplier/{id}', 'SupplierController@show');
 Route::resource('supplier','SupplierController');
 
+Route::resource('role','RoleController');
+
 
 Auth::routes();
 

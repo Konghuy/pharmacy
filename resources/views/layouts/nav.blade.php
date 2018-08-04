@@ -185,7 +185,7 @@
                             </a>
                         </li>
                         <li class=@yield('r')>
-                            <a href="../forms/extended.html">
+                            <a href="/role">
                                 <span class="sidebar-mini">R</span>
                                 <span class="sidebar-normal">Roles</span>
                             </a>

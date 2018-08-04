@@ -1,7 +1,7 @@
 @extends('master')
-@section('title', 'Supplier')
-@section('panel-title', 'Supplier')
-@section('s', 'active')
+@section('title', 'Role')
+@section('panel-title', 'Role')
+@section('r', 'active')
 @section('li-staff', 'active')
 @section('staff', 'true')
 
@@ -9,8 +9,8 @@
 
 <div class="content">
         <div class="container-fluid">
-                <a href="/supplier/create" class="btn btn-wd btn-default btn-fill btn-move-right pull-right">
-                        Add Supplier    
+                <a href="/role/create" class="btn btn-wd btn-default btn-fill btn-move-right pull-right">
+                        Add Role    
                     <span class="btn-label">
                             <i class="ti-angle-right"></i>
                         </span>  
@@ -21,7 +21,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-content">
-                                <h4>Supplier Infomation</h4>
+                                <h4>Roles Infomation</h4>
                             <div class="toolbar">
                                 <!--Here you can write extra buttons/actions for the toolbar-->
                             </div>
@@ -30,35 +30,26 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Address</th>
-                                        <th>Contact</th>
-                                        <th>Phone</th>
-                                        <th>Email</th>
+                                        <th>Description</th>
                                         <th class="disabled-sorting">Actions</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
                                             <th>Name</th>
-                                            <th>Address</th>
-                                            <th>Contact</th>
-                                            <th>Phone</th>
-                                            <th>Email</th>
+                                            <th>Description</th>
                                             <th>Actions</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @foreach($suppliers as $supplier)
+                                    @foreach($roles as $role)
                                     <tr>
-                                        <td>{{$supplier->name}}</td>
-                                        <td>{{$supplier->address}}</td>
-                                        <td>{{$supplier->contact}}</td>
-                                        <td>{{$supplier->phone}}</td>
-                                        <td>{{$supplier->email}}</td>
+                                        <td>{{$role->name}}</td>
+                                        <td>{{$role->description}}</td>
                                         <td>
-                                            <a href="/supplier/{{$supplier->id}}" class="btn btn-simple btn-info btn-icon"><i class="ti-image"></i></a>
-                                            <a href="/supplier/{{$supplier->id}}/edit" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
-                                            <a href="/supplier/{{$supplier->id}}" class="btn btn-simple btn-danger btn-icon remove"><i class="ti-close"></i></a>
+                                            <a href="/role/{{$role->id}}" class="btn btn-simple btn-info btn-icon"><i class="ti-image"></i></a>
+                                            <a href="/role/{{$role->id}}/edit" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
+                                            <a href="/role/{{$role->id}}" class="btn btn-simple btn-danger btn-icon remove"><i class="ti-close"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach
