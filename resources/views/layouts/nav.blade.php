@@ -83,15 +83,15 @@
                         </a>
                     </li>
                     <li class=@yield('mc')>
-                        <a href="../components/panels.html">
+                        <a href="/category">
                             <span class="sidebar-mini">MC</span>
                             <span class="sidebar-normal">Medicine Category</span>
                         </a>
                     </li>
-                    <li class=@yield('ac')>
-                        <a href="../components/sweet-alert.html">
-                            <span class="sidebar-mini">AC</span>
-                            <span class="sidebar-normal">Add Category</span>
+                    <li class=@yield('pk')>
+                        <a href="/packages">
+                            <span class="sidebar-mini">PK</span>
+                            <span class="sidebar-normal">Packages</span>
                         </a>
                     </li>
                 </ul>

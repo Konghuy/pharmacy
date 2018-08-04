@@ -35,6 +35,7 @@ Route::resource('supplier','SupplierController');
 
 Route::resource('role','RoleController');
 
+Route::resource('category','CategoryController');
 
 Auth::routes();
 
