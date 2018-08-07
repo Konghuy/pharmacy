@@ -1,7 +1,7 @@
 @extends('master')
-@section('title', 'Edit Package')
-@section('panel-title', 'Edit Package')
-@section('pk', 'active')
+@section('title', 'Edit Ranking')
+@section('panel-title', 'Edit Ranking')
+@section('rp', 'active')
 @section('li-medication', 'active')
 @section('medication', 'true')
 
@@ -9,7 +9,7 @@
 {{csrf_field()}}
 <div class="content">
     <div class="container-fluid">
-            <a href="/package" class="btn btn-wd btn-default btn-fill btn-move-left pull-right">
+            <a href="/rank" class="btn btn-wd btn-default btn-fill btn-move-left pull-right">
                     <span class="btn-label">
                         <i class="ti-angle-left"></i>
                     </span>  Back
@@ -18,12 +18,12 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                <form id="registerFormValidation"  action="/package/{{$package->id}}" method="POST" novalidate="">
+                <form id="registerFormValidation"  action="/rank/{{$rank->id}}" method="POST" novalidate="">
                     {{csrf_field()}}
                     {{method_field('put')}}
                         <div class="card-header">
                             <h4 class="card-title ">
-                                Edit Package
+                                Edit Rank
                             </h4>
                         </div>
 
@@ -38,7 +38,7 @@
                                        required="true"
                                        autocomplete="off"
                                        placeholder="Name"
-                                       value="{{$package->name}}"
+                                       value="{{$rank->name}}"
                                 />
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                                            required="true"
                                            autocomplete="off"
                                            placeholder="Address"
-                                           value="{{$package->description}}"
+                                           value="{{$rank->description}}"
                                         />
                                 </div>
                         </div>

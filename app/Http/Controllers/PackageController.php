@@ -39,12 +39,20 @@ class PackageController extends Controller
 
     public function edit($id)
     {
-        //
+        $package = Packages::find($id);
+         return view('package.edit', ['package' => $package]);
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $package = Packages::find($id);
+        $package->name = $request->name;
+        $package->description = $request->description;
+        $package->updated_by = 1;
+        $package->updated_at = Carbon::now();
+        $package->update();
+        
+        return redirect('/package');
     }
 
     public function destroy($id)

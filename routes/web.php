@@ -39,6 +39,8 @@ Route::resource('category','CategoryController');
 
 Route::resource('package','PackageController');
 
+Route::resource('rank','RankController');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

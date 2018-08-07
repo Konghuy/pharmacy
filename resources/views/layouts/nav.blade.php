@@ -76,10 +76,10 @@
                             <span class="sidebar-normal">Medicine info</span>
                         </a>
                     </li>
-                    <li class=@yield('am')>
-                        <a href="../components/grid.html">
-                            <span class="sidebar-mini">AM</span>
-                            <span class="sidebar-normal">Add Midecine</span>
+                    <li class=@yield('rp')>
+                        <a href="/rank">
+                            <span class="sidebar-mini">RP</span>
+                            <span class="sidebar-normal">Ranking Product</span>
                         </a>
                     </li>
                     <li class=@yield('mc')>
