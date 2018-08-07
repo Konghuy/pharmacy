@@ -9,6 +9,6 @@ class Supplier extends Model
     protected $table = 'supplier';
 
 
-    protected $fillable = ['name','address','contact','phone','email'];
+   
 
 }

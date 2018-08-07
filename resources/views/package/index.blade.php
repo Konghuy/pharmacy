@@ -49,7 +49,8 @@
                                         <td>
                                             <a href="/package/{{$package->id}}" class="btn btn-simple btn-info btn-icon"><i class="ti-image"></i></a>
                                             <a href="/package/{{$package->id}}/edit" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
-                                            <a href="/package/{{$package->id}}" class="btn btn-simple btn-danger btn-icon remove"><i class="ti-close"></i></a>
+                                            <a href="#" class="btn btn-simple btn-danger btn-icon remove" onclick="demo.showSwal('warning-message-and-confirmation')"><i class="ti-close"></i></a>
+                                             {{-- /package/{{$package->id}} --}}
                                         </td>
                                     </tr>
                                     @endforeach

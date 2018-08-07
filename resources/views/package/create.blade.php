@@ -1,7 +1,7 @@
 @extends('master')
 @section('title', 'Create Category')
 @section('panel-title', 'Create Category')
-@section('mc', 'active')
+@section('pk', 'active')
 @section('li-medication', 'active')
 @section('medication', 'true')
 
@@ -9,7 +9,7 @@
 {{csrf_field()}}
 <div class="content">
     <div class="container-fluid">
-            <a href="/category" class="btn btn-wd btn-default btn-fill btn-move-left pull-right">
+            <a href="/package" class="btn btn-wd btn-default btn-fill btn-move-left pull-right">
                     <span class="btn-label">
                         <i class="ti-angle-left"></i>
                     </span>  Back to List
@@ -18,11 +18,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <form id="registerFormValidation" action="/category" method="POST" novalidate="">
+                    <form id="registerFormValidation" action="/package" method="POST" novalidate="">
                         {{csrf_field()}}
                         <div class="card-header">
                             <h4 class="card-title ">
-                                Create Category
+                                Create package type
                             </h4>
                         </div>
 
@@ -32,7 +32,7 @@
                                     Name <star>*</star>
                                 </label>
                                 <input class="form-control "
-                                       name="name"
+                                       name="title"
                                        type="text"
                                        required="true"
                                        autocomplete="off"
