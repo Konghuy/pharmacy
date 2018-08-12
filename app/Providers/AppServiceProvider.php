@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\facades\schema;
+// use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +18,8 @@ class AppServiceProvider extends ServiceProvider
         
         Schema::defaultStringLength(191);
         date_default_timezone_set('Asia/Phnom_Penh');
+        // Paginator::defaultView('pagination::view');
+        // Paginator::defaultSimpleView('pagination::view');
     }
 
     /**

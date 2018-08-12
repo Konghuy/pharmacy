@@ -41,6 +41,12 @@ Route::resource('package','PackageController');
 
 Route::resource('rank','RankController');
 
+Route::resource('medication','MedicationController');
+
+Route::resource('payment','PaymentController');
+
+Route::resource('purchase','PurchaseController');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

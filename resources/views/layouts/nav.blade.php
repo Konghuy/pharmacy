@@ -48,7 +48,7 @@
     </div>
     <ul class="nav">
         <li class=@yield('dashboard')>
-            <a>
+            <a href="/">
                 <i class="ti-panel"></i>
                 <p>Dashboard</p>
             </a>
@@ -71,9 +71,9 @@
             <div class="collapse" id="medication" >
                 <ul class="nav">
                     <li class=@yield('mi')>
-                        <a href="../components/buttons.html">
+                        <a href="/medication">
                             <span class="sidebar-mini">MI</span>
-                            <span class="sidebar-normal">Medicine info</span>
+                            <span class="sidebar-normal">Medicine</span>
                         </a>
                     </li>
                     <li class=@yield('rp')>
@@ -94,6 +94,12 @@
                             <span class="sidebar-normal">Packages</span>
                         </a>
                     </li>
+                        <li class=@yield('pm')>
+                            <a href="/payment">
+                                <span class="sidebar-mini">PM</span>
+                                <span class="sidebar-normal">Payment Methods</span>
+                            </a>
+                        </li>
                 </ul>
             </div>
         </li>
@@ -115,7 +121,7 @@
             <div class="collapse" id="export">
                 <ul class="nav">
                     <li class=@yield('pc')>
-                        <a href="../components/buttons.html">
+                        <a href="/purchase">
                             <span class="sidebar-mini">PC</span>
                             <span class="sidebar-normal">Purchase</span>
                         </a>

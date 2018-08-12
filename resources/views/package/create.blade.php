@@ -54,13 +54,15 @@
                                            placeholder="Description"
                                         />
                                 </div>
+                                
                         </div>
+
 
                             <div class="card-footer">
                                     <button type="submit" class="btn btn-info btn-fill pull-right">Create</button>
                             </div>
                             <div class="clearfix"></div>
-
+                            <br>
                     </form>
                 </div>
             </div>
@@ -75,8 +77,8 @@
     <script type="text/javascript">
         $().ready(function(){
             $('#registerFormValidation').validate();
-            $('#loginFormValidation').validate();
-            $('#allInputsFormValidation').validate();
+            // $('#loginFormValidation').validate();
+            // $('#allInputsFormValidation').validate();
         });
     </script>
 @endsection

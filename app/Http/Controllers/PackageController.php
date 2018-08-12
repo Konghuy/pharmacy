@@ -29,6 +29,7 @@ class PackageController extends Controller
         $package->created_at = Carbon::now();
         $package->save();
     
+        // dd($package->id);
         return redirect('/package');
     }
 

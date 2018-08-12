@@ -1,7 +1,7 @@
 @extends('master')
-@section('title', 'Edit Package')
-@section('panel-title', 'Edit Package')
-@section('pk', 'active')
+@section('title', 'Create Category')
+@section('panel-title', 'Create Category')
+@section('pm', 'active')
 @section('li-medication', 'active')
 @section('medication', 'true')
 
@@ -9,21 +9,20 @@
 {{csrf_field()}}
 <div class="content">
     <div class="container-fluid">
-            <a href="/package" class="btn btn-wd btn-default btn-fill btn-move-left pull-right">
+            <a href="/payment" class="btn btn-wd btn-default btn-fill btn-move-left pull-right">
                     <span class="btn-label">
                         <i class="ti-angle-left"></i>
-                    </span>  Back
+                    </span>  Back to List
                 </a>
 
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                <form id="registerFormValidation"  action="/package/{{$package->id}}" method="POST" novalidate="">
-                    {{csrf_field()}}
-                    {{method_field('put')}}
+                    <form id="registerFormValidation" action="/payment" method="POST" novalidate="">
+                        {{csrf_field()}}
                         <div class="card-header">
                             <h4 class="card-title ">
-                                Edit Package
+                                Create Payment
                             </h4>
                         </div>
 
@@ -33,12 +32,11 @@
                                     Name <star>*</star>
                                 </label>
                                 <input class="form-control "
-                                       name="name"
+                                       name="title"
                                        type="text"
                                        required="true"
                                        autocomplete="off"
                                        placeholder="Name"
-                                       value="{{$package->name}}"
                                 />
                             </div>
                         </div>
@@ -53,15 +51,14 @@
                                            type="text"
                                            required="true"
                                            autocomplete="off"
-                                           placeholder="Address"
-                                           value="{{$package->description}}"
+                                           placeholder="Description"
                                         />
                                 </div>
+                                
                         </div>
 
-
                             <div class="card-footer">
-                                    <button type="submit" class="btn btn-info btn-fill pull-right">Update</button>
+                                    <button type="submit" class="btn btn-info btn-fill pull-right">Create</button>
                             </div>
                             <div class="clearfix"></div>
                             <br>

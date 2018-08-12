@@ -1,7 +1,7 @@
 @extends('master')
 @section('title', 'Category')
 @section('panel-title', 'Category')
-@section('pk', 'active')
+@section('pm', 'active')
 @section('li-medication', 'active')
 @section('medication', 'true')
 
@@ -9,19 +9,19 @@
 
 <div class="content">
         <div class="container-fluid">
-                <a href="/package/create" class="btn btn-wd btn-default btn-fill btn-move-right pull-right">
-                        Add Package    
+                <a href="/payment/create" class="btn btn-wd btn-default btn-fill btn-move-right pull-right">
+                        Add Payment    
                     <span class="btn-label">
                             <i class="ti-angle-right"></i>
                         </span>  
                     </a>
                     <div class="clearfix"></div>
 
-        <div class="row">
+            <div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-content">
-                                <h4>Package Infomation</h4>
+                                <h4>Payment Infomation</h4>
                             <div class="toolbar">
                                 <!--Here you can write extra buttons/actions for the toolbar-->
                             </div>
@@ -42,17 +42,16 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @foreach($packages as $package)
+                                    @foreach($payments as $payment)
                                     <tr>
-                                        <td>{{$package->name}}</td>
-                                        <td>{{$package->description}}</td>
-
+                                        <td>{{$payment->name}}</td>
+                                        <td>{{$payment->description}}</td>
                                         <td>
-                                            <a href="/package/{{$package->id}}" class="btn btn-simple btn-info btn-icon"><i class="ti-image"></i></a>
-                                            <a href="/package/{{$package->id}}/edit" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
+                                            <a href="/payment/{{$payment->id}}" class="btn btn-simple btn-info btn-icon"><i class="ti-image"></i></a>
+                                            <a href="/payment/{{$payment->id}}/edit" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
                                             <a href="#" class="btn btn-simple btn-danger btn-icon remove" onclick="demo.showSwal('warning-message-and-confirmation')"><i class="ti-close"></i></a>
                                              {{-- /package/{{$package->id}} --}}
-                                         </td>
+                                        </td>
                                     </tr>
                                     @endforeach
                                    </tbody>
@@ -64,9 +63,6 @@
                     </div><!--  end card  -->
                 </div> <!-- end col-md-12 -->
             </div> <!-- end row -->
-        </div>
-    </div>
-
         </div>
     </div>
 
@@ -89,6 +85,26 @@
 
 
         var table = $('#datatables').DataTable();
+        //  // Edit record
+        //  table.on( 'click', '.edit', function () {
+        //     $tr = $(this).closest('tr');
+
+        //     var data = table.row($tr).data();
+        //     alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
+        //  } );
+
+        //  // Delete a record
+        //  table.on( 'click', '.remove', function (e) {
+        //     $tr = $(this).closest('tr');
+        //     table.row($tr).remove().draw();
+        //     e.preventDefault();
+        //  } );
+
+        // //Like record
+        // table.on( 'click', '.like', function () {
+        //     alert('You clicked on Like button');
+        //  });
+
     });
 </script>
 
