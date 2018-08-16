@@ -4552,6 +4552,24 @@ select.selectpicker {
   width: auto;
   line-height: inherit;
 }
+.mydd{
+  margin: 0;
+  padding: 0;
+}
+.mydd, .mydd li, .mydd li a{
+  display:block; 
+  position:relative;
+  list-style-type: none;
+  background: #E3E3E3;
+  color: black;
+  line-height: 2.5;
+  border-radius: 4px;
+  text-indent: 50px;
+}
+.mydd li a:hover{
+  background: #9A9A9A; 
+  color: black;
+}
 .bootstrap-datetimepicker-widget .picker-switch td span {
   line-height: 2.5;
   height: 2.5em;

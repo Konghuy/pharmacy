@@ -27,10 +27,6 @@ Route::get('/showUser', function () {
     return view('staff.user.showUser');
 });
 
-// Route::get('/supplier', 'SupplierController@index');
-// Route::get('/supplier/create', 'SupplierController@create');
-// Route::post('/supplier', 'SupplierController@store');
-// Route::get('/supplier/{id}', 'SupplierController@show');
 Route::resource('supplier','SupplierController');
 
 Route::resource('role','RoleController');
@@ -46,6 +42,13 @@ Route::resource('medication','MedicationController');
 Route::resource('payment','PaymentController');
 
 Route::resource('purchase','PurchaseController');
+Route::post('/purchase/fetch','PurchaseController@fetch')->name('purchase.fetch');
+Route::post('/purchase/add','PurchaseController@add')->name('purchase.add');
+
+
+// Route::get('autocomplete-search',array('as'=>'autocomplete.search','uses'=>'PurchaseController@index'));
+
+// Route::get('autocomplete-ajax',array('as'=>'autocomplete.ajax','uses'=>'PurchaseController@ajaxData'));
 
 Auth::routes();
 

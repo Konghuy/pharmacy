@@ -9,74 +9,37 @@
 
 <div class="content">
         <div class="container-fluid">
-                <a href="/medication/create" class="btn btn-wd btn-default btn-fill btn-move-right pull-right">
-                        Add Medicine    
-                    <span class="btn-label">
-                            <i class="ti-angle-right"></i>
-                        </span>  
-                    </a>
-                    <div class="clearfix"></div>
             <div class="row">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-content">
-                                    <h4>Medicine Infomation</h4>
-                                <div class="toolbar">
-                                    <!--Here you can write extra buttons/actions for the toolbar-->
+                                <h4>Searching Item you need</h4>
+                                <div class="form-group">
+                                    <input class="form-control " name="medication" id="medication_name" type="text"  placeholder="Search"/>
+                                    <div id="medicationList">
+
+                                    </div>
+                                    {{csrf_field()}}
                                 </div>
+                            </div>
+                            <div class="card-content">
                                 <table id="bootstrap-table" class="table">
                                     <thead>
-                                        {{-- <th data-field="state" data-checkbox="true"></th> --}}
-                                        <th data-field="code" data-sortable="true">Code</th>
-                                        <th data-field="name" data-sortable="true">Name</th>
-                                        <th data-field="category" data-sortable="true">Category</th>
-                                        <th data-field="package" data-sortable="true">Package</th>
-                                        <th data-field="qtyPackage" data-sortable="true">Qty package</th>
-                                        <th data-field="PackagePrice" data-sortable="true">Price/package </th>
-                                        {{-- <th data-field="itemInpackage" data-sortable="true">Item in Package</th> --}}
-                                        <th data-field="qtyItem" data-sortable="true">Qty Item</th>
-                                        <th data-field="priceItem" data-sortable="true">Price Item</th>
-                                        {{-- <th data-field="subItem" data-sortable="true">Sub-Item</th> --}}
-                                        <th data-field="qtySubItem" data-sortable="true">Qty Sub-Item</th>
-                                        <th data-field="priceSubItem" data-sortable="true">Price Sub Item</th>
-                                        <th data-field="weight" data-sortable="true">Weight</th>
-                                        <th data-field="rank_Num" data-sortable="true">Ranking</th>
-                                        <th data-field="manu" data-sortable="true">Manufacturing</th>
-                                        <th data-field="Expire" data-sortable="true">Expired</th>
-                                        <th data-field="actions" >Actions control</th>
+                                        <th>Code</th>
+                                        <th>Name</th>
+                                        <th>Packages</th>
+                                        <th>Price/Package</th>
+                                        <th>Item Packgaes</th>
+                                        <th>Price/Package</th>
+                                        <th>Sub Item</th>
+                                        <th>Price/Sub-Item</th>
+                                        <th>Action</th>
                                     </thead>
-                                    <tbody>
-                                        @foreach($medications as $medication)
-                                        <tr>
-                                            <td>{{$medication->pro_code}}</td>
-                                            <td>{{$medication->pro_name}}</td>
-                                            <td>{{$medication->cat_id}}</td>
-
-                                            <td>{{$medication->package_id}}</td>
-                                            <td>{{$medication->items_in_pack}}</td>
-                                            <td>{{$medication->item_unit_cost}}</td>
-
-                                            <td>{{$medication->sub_items_in_item}}</td>
-                                            <td>{{$medication->sub_item_unit_cost}}</td>
-                                            <td>{{$medication->qty}}</td>
-                                            <td>{{$medication->price}}</td>
-
-                                            <td>{{$medication->weight}}</td> 
-                                            <td>{{$medication->rank_number_id}}</td>
-
-                                            <td>{{Carbon\Carbon::parse($medication->manufacturing_date)->format('d/m/Y')}}</td> 
-                                            <td>{{Carbon\Carbon::parse($medication->expiry_date)->format('d/m/Y')}}</td>
-                                            
-                                            <td>
-                                                    <a href="/medication/{{$medication->id}}" class="btn btn-simple btn-info btn-icon"><i class="ti-image"></i></a>
-                                                    <a href="/medication/{{$medication->id}}/edit" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
-                                                    <a href="#" class="btn btn-simple btn-danger btn-icon remove" onclick="demo.showSwal('warning-message-and-confirmation')"><i class="ti-close"></i></a>
-                                                     {{-- /package/{{$package->id}} --}}
-                                            </td>
-                                        </tr>
-                                        @endforeach
+                                    <tbody id="tbody">
                                     </tbody>
                                 </table>
+                            <div id="purchaseOption">
+                            </div>
                             </div>
                         </div><!--  end card  -->
                     </div> <!-- end col-md-12 -->
@@ -89,7 +52,7 @@
 @section('script')
 
 <script type="text/javascript">
-
+    // document.getElementById("purchase").disabled = true;
     var $table = $('#bootstrap-table');
 
         $().ready(function(){
@@ -97,9 +60,9 @@
                 toolbar: ".toolbar",
                 clickToSelect: true,
                 // showRefresh: true,
-                search: true,
-                showToggle: true,
-                showColumns: true,
+                // search: true,
+                // showToggle: true,
+                // showColumns: true,
                 pagination: true,
                 searchAlign: 'left',
                 pageSize: 8,
@@ -129,6 +92,145 @@
             });
         });
 
+</script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    
+    $('#medication_name').keyup(function(){
+        
+        var query = $(this).val();
+        if(query != ''){
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:"{{route('purchase.fetch')}}",
+                method:"POST",
+                dataType: 'json',
+                data:{query:query, _token: _token},
+                success:function(data){
+                     $('#medicationList').fadeIn();
+                      var str = '<ul class="mydd">';
+                        $.each( data, function( keys, values ) {
+                            $.each( values, function( key, value ) {
+                                if(key=="pro_code"){
+                                    str += '<li><a href="#">' + value;
+                                }
+                                if(key=="pro_name"){
+                                    str +=  '-' + value + '</a></li>';
+                                    '{{csrf_field()}}'
+                                }
+                            })
+                        })
+                        str += '</ul>';
+                        // {{csrf_field()}}
+                        $('#medicationList').html(str);
+                }
+            })  
+        }
+    });
+
+    $(document).on('click','li',function(){
+        // alert($(this).value);
+        var x = $(this).text();
+        var query = x.split("-",1);
+        // alert(query);
+        if(query != ''){
+            var _token = $('input[name="_token"]').val();
+            // alert(_token);
+            $.ajax({
+                url:"{{route('purchase.add')}}",
+                method:"POST",
+                data:{query:query, _token: _token},
+                success:function(data){
+                    //  $('#medicationList').fadeIn();
+                    var str = '<tr>';
+                        $.each( data, function( keys, values ) {
+                            $.each( values, function( key, value ) {
+                                //  alert(value);
+                                if(key=="pro_code"){
+                                    str += "<td>" + value + "</td>";
+                                }
+                                if(key=="pro_name"){
+                                    str += "<td>" + value + "</td>";
+                                }
+
+                            })
+                        })
+                        str +='<td class="attrName"><input type="number" class="form-control" name="package"></td>';
+                        str +='<td class="attrName"><input type="number" class="form-control" name="packagePrice"></td>';
+                        str +='<td class="attrName"><input type="number" class="form-control" name="item"></td>';
+                        str +='<td class="attrName"><input type="number" class="form-control" name="itemPrice"></td>';
+                        str +='<td class="attrName"><input type="number" class="form-control" name="subitem"></td>';
+                        str +='<td class="attrName"><input type="number" class="form-control" name="subPrice"></td>';
+                         str += '<td><a href="#" class="btn btn-simple btn-danger btn-icon" id="btnDelete"><i class="ti-close"></i></a></td></tr>';
+                         $('#bootstrap-table > tbody').prepend(str);
+                         $(".no-records-found").remove();
+                         $( "#btnDelete" ).click(function() {
+                            $(document).on('click','tr',function(){
+                                $(this).remove();
+                                
+                            });
+                        });
+                        //  $('#link').html('<a href="#" class="btn btn-wd btn-default btn-fill btn-move-right pull-right" id="purchase">Purchase<span class="btn-label"><i class="ti-angle-right"></i></span></a>');
+                         $('#purchaseOption').html(
+                            '<fieldset>'
+                                        +'<div class="card-content">'
+                                        +    '<div class="col-md-3"><label class="control-label">Supplier</label></div> '
+                                        +    '<div class="col-md-3"><label class="control-label">Discount</label></div>'
+                                        +    '<div class="col-md-3"><label class="control-label">Tax</label></div>'
+                                        +    '<div class="col-md-3"><label class="control-label">Payment Method</label></div>'   
+                                        +'<div class="form-group">'
+                                        +    '<div class="col-md-3">'
+                                        +            '<select  class="form-control" data-style="btn btn-defuil btn-block" title="Supplier" data-size="5" name="supplier">'
+                                        +               ' @foreach($suppliers as $supplier)'
+                                        +                '    <option value="{{$supplier->id}}" > {{$supplier->name}} </option>'
+                                        +                '@endforeach'
+                                        +            '</select>'
+                                        +    '</div>'
+                                        +     '<div class="col-md-3">'
+                                        +            '<input type="number" class="form-control" placeholder="Discount" name="Discount">'
+                                        +        '</div>'
+                                        +    '<div class="col-md-3">'
+                                        +        '<input type="number" class="form-control" placeholder="Tax" name="Tax">'
+                                        +    '</div>'
+                                        +    '<div class="col-md-3">'
+                                        +            '<select  class="form-control" data-style="btn btn-defuil btn-block" title="Payment Method" data-size="5" name="payment">'
+                                        +               ' @foreach($payments as $payment)'
+                                        +                '    <option value="{{$payment->id}}" > {{$payment->name}} </option>'
+                                        +                '@endforeach'
+                                        +            '</select>'
+                                        +    '</div>'
+                                        +'</div>'
+                                        +'</div>'
+                                    +'</fieldset>'
+
+
+
+                            +'<fieldset>'
+                                        + '<div class="form-group">'
+                                        +   '<div class="card-content">'
+                                        +        '<label class="control-label">Remark</label>'
+                                        +        '<div class="col-sm-12">'
+                                        +            '<textarea class="form-control" placeholder="Say something" rows="5" name="remark"></textarea>'
+                                        +        '</div>'
+                                        +    '</div>'
+                                        +'</div>'
+                                    +'</fieldset>'
+                                 +   '<br/>'
+                             +'<button class="btn btn-wd btn-info btn-fill btn-move-right pull-right" id="purchaseid">Purchase<span class="btn-label"><i class="ti-angle-right"></i></span></button>'
+                             +   '<br/>'                                
+                             +   '<br/>'
+                            );
+                }
+                
+            })  
+        }
+
+         $('#medication_name').val('');
+        $('#medicationList').fadeOut();
+    });
+});
 </script>
 
 @endsection

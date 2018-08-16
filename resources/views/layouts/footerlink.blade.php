@@ -2,7 +2,9 @@
 
 	<!--   Core JS Files. Extra: TouchPunch for touch library inside jquery-ui.min.js   -->
 	<script src="{{asset('../../assets/js/jquery-3.1.1.min.js')}}" type="text/javascript"></script>
+	
 	<script src="{{asset('../../assets/js/jquery-ui.min.js')}}" type="text/javascript"></script>
+	<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 	<script src="{{asset('../../assets/js/perfect-scrollbar.min.js')}}" type="text/javascript"></script>
 	<script src="{{asset('../../assets/js/bootstrap.min.js')}}" type="text/javascript"></script>
 
@@ -43,7 +45,7 @@
 	<script src="{{asset('../../assets/js/jquery-jvectormap.js')}}"></script>
 
 	<!--  Google Maps Plugin    -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+	<!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
 
 	<!-- Wizard Plugin    -->
 	<script src="{{asset('../../assets/js/jquery.bootstrap.wizard.min.js')}}"></script>
