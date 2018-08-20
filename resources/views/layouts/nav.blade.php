@@ -72,10 +72,16 @@
                 <ul class="nav">
                     <li class=@yield('mi')>
                         <a href="/medication">
-                            <span class="sidebar-mini">MI</span>
-                            <span class="sidebar-normal">Medicine</span>
+                            <span class="sidebar-mini">M</span>
+                            <span class="sidebar-normal">Medication</span>
                         </a>
                     </li>
+                    <!-- <li class=@yield('im')>
+                        <a href="/stock">
+                            <span class="sidebar-mini">SM</span>
+                            <span class="sidebar-normal">Stock Medication</span>
+                        </a>
+                    </li> -->
                     <li class=@yield('rp')>
                         <a href="/rank">
                             <span class="sidebar-mini">RP</span>

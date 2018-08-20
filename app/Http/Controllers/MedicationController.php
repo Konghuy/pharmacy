@@ -11,6 +11,7 @@ use App\Packages;
 use App\Rank;
 use App\Supplier;
 use App\Payment;
+use App\Stock;
 
 
 class MedicationController extends Controller
@@ -62,42 +63,14 @@ class MedicationController extends Controller
         $medication->created_at = Carbon::now();
         $medication->save();
 
-        // // Add data to purchase
-        // $purchase = new Purchase();
-        // $purchase->suppiler_id = $request->supplier;
-        // $purchase->discount = $request->discount;
-        // $purchase->tax = $request->tax;
-        // $purchase->payment_method_id = $request->payment;
-        // $purchase->grand_total = ($request->qtyPackage * $request->pricePackagePurches) + 
-        //                          ($request->qtyItem * $request->priceItemPurches) + 
-        //                          ($request->qtySubItem * $request->priceSubItemPurches) - 
-        //                          ($request->discount);
-        // $purchase->remark = $request->remark;
-        // $purchase->created_by = 1;
-        // $purchase->created_at = Carbon::now();
-        // $purchase->save();
-
+        // Add to Stock
+        $stock = new Stock();
+        $stock->pro_id = $medication->id;
+        $stock->stock_package = 0;
+        $stock->stock_item = 0;
+        $stock->stock_subItem = 0;
+        $stock->save();
         
-        // // Add to purchase item
-        // $pItem = new PurchaseItem();
-        // $medicine = Medication::find($medication->id);
-        // $pItem->purchase_id = $purchase->id;
-        // $pItem->product_id = $medication->id;
-        // $pItem->current_items_in_pack = 0;
-        // $pItem->current_item_unit_cost = 0;
-        // $pItem->current_sub_items_in_item = 0;
-        // $pItem->current_sub_item_unit_cost = 0;
-        // $pItem->current_qty = 0;
-        // $pItem->current_price = 0;
-        
-        // $pItem->purchase_items_in_pack = $request->qtyPackage;
-        // $pItem->purchase_items_unit_cost = $request->pricePackagePurches;
-        // $pItem->purchase_sub_items_in_item = $request->qtyItem;
-        // $pItem->purchase_sub_items_unit_cost = $request->priceItemPurches;
-        // $pItem->purchase_qty = $request->qtySubItem;
-        // $pItem->purchase_price = $request->priceSubItemPurches;
-        // $pItem->save();
-
         return redirect('/medication');
     }
     public function edit($id)

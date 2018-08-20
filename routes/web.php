@@ -44,6 +44,7 @@ Route::resource('payment','PaymentController');
 Route::resource('purchase','PurchaseController');
 Route::post('/purchase/fetch','PurchaseController@fetch')->name('purchase.fetch');
 Route::post('/purchase/add','PurchaseController@add')->name('purchase.add');
+Route::post('/purchase/store','PurchaseController@store')->name('purchase.store');
 
 
 // Route::get('autocomplete-search',array('as'=>'autocomplete.search','uses'=>'PurchaseController@index'));

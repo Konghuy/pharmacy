@@ -8,4 +8,7 @@ class Supplier extends Model
 {
     protected $table = 'supplier';
 
+    public function purchase(){
+        return $this->belongsTo('App\Purchase');
+    }
 }
