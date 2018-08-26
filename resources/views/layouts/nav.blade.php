@@ -55,7 +55,7 @@
         </li>
 
         <li class=@yield('pos')>
-            <a>
+            <a href="pos">
                 <i class="ti-shopping-cart"></i>
                 <p>POS</p>
             </a>

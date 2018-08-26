@@ -1,9 +1,8 @@
 @extends('master')
-@section('title', 'Purchase')
-@section('panel-title', 'Purchase')
-@section('pc', 'active')
-@section('li-import', 'active')
-@section('import', 'true')
+@section('title', 'POS')
+@section('panel-title', 'POS')
+@section('pos', 'active')
+
 
 @section('content')
 
@@ -13,7 +12,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-content">
-                                <h4>Searching Item you need</h4>
+                                <h4>Searching Item for sales</h4>
                                 <div class="form-group">
                                     <input class="form-control " name="medication" id="medication_name" type="text"  placeholder="Search"/>
                                     <div id="medicationList">
@@ -105,12 +104,13 @@ $(document).ready(function(){
         var query = $(this).val();
         if(query != ''){
             var _token = $('input[name="_token"]').val();
-            $.ajax({
-                url:"{{route('purchase.fetch')}}",
+            $.ajax({ 
+                url:"{{route('pos.fetch')}}",
                 method:"POST",
                 dataType: 'json',
                 data:{query:query, _token: _token},
                 success:function(data){
+                    // alert(data);
                      $('#medicationList').fadeIn();
                       var str = '<ul class="mydd">';
                         $.each( data, function( keys, values ) {
@@ -138,7 +138,7 @@ $(document).ready(function(){
         if(query != ''){
             var _token = $('input[name="_token"]').val();
             $.ajax({
-                url:"{{route('purchase.add')}}",
+                url:"{{route('pos.add')}}",
                 method:"POST",
                 data:{query:query, _token: _token},
                 success:function(data){
@@ -155,15 +155,24 @@ $(document).ready(function(){
                                 if(key=="pro_name"){
                                     str += "<td>" + value + "</td>";
                                 }
+                                if(key=="item_unit_cost"){
+                                    $pcost = value;
+                                }
+                                if(key=="sub_item_unit_cost"){
+                                    $icost = value;
+                                }
+                                if(key=="price"){
+                                    $scost = value;
+                                }
 
                             })
                         })
-                        str +='<td ><input type="number" class="form-control attrName at" min=0 max="5" name="package[]"></td>';
-                        str +='<td ><input type="number" class="form-control attrName at" min="0" name="packagePrice[]"></td>';
+                        str +='<td ><input type="number" class="form-control attrName at" min=0  name="package[]"></td>';
+                        str +='<td ><input type="number" class="form-control attrName at" min="0" name="packagePrice[]" disabled value="'+$pcost+'"></td>';
                         str +='<td ><input type="number" class="form-control attrName at" min="0" name="item[]"></td>';
-                        str +='<td ><input type="number" class="form-control attrName at" min="0" name="itemPrice[]"></td>';
+                        str +='<td ><input type="number" class="form-control attrName at" min="0" name="itemPrice[]" disabled value="'+$icost+'"></td>';
                         str +='<td ><input type="number" class="form-control attrName at" min="0" name="subitem[]"></td>';
-                        str +='<td ><input type="number" class="form-control attrName at" min="0" name="subPrice[]"></td>';
+                        str +='<td ><input type="number" class="form-control attrName at" min="0" name="subPrice[]" disabled value="'+$scost+'"></td>';
                         // str +='<td ><input type="number" class="form-control" min="0" name="subtotal[]" disabled></td>';
                          str += '<td><a href="#" class="btn btn-simple btn-danger btn-icon dt" id="btnDelete"><i class="ti-close"></i></a></td></tr>';
                          $('#bootstrap-table > tbody').prepend(str);
@@ -184,25 +193,18 @@ $(document).ready(function(){
                          $('#purchaseOption').html(
                             '<fieldset>'
                                         +'<div class="card-content">'
-                                        +    '<div class="col-md-3"><label class="control-label">Supplier</label></div> '
-                                        +    '<div class="col-md-3"><label class="control-label">Discount</label></div>'
-                                        +    '<div class="col-md-3"><label class="control-label">Tax</label></div>'
-                                        +    '<div class="col-md-3"><label class="control-label">Payment Method</label></div>'   
+                                        // +    '<div class="col-md-3"><label class="control-label">Supplier</label></div> '
+                                        +    '<div class="col-md-4"><label class="control-label">Discount</label></div>'
+                                        +    '<div class="col-md-4"><label class="control-label">Tax</label></div>'
+                                        +    '<div class="col-md-4"><label class="control-label">Payment Method</label></div>'   
                                         +'<div class="form-group">'
-                                        +    '<div class="col-md-3">'
-                                        +            '<select  class="form-control" data-style="btn btn-defuil btn-block" title="Supplier" id="supplier" data-size="5" name="supplier">'
-                                        +               ' @foreach($suppliers as $supplier)'
-                                        +                '    <option value="{{$supplier->id}}" > {{$supplier->name}} </option>'
-                                        +                '@endforeach'
-                                        +            '</select>'
-                                        +    '</div>'
-                                        +     '<div class="col-md-3">'
+                                        +     '<div class="col-md-4">'
                                         +            '<input type="number" class="form-control at" placeholder="Discount" name="Discount" id="discount" min="0">'
                                         +        '</div>'
-                                        +    '<div class="col-md-3">'
+                                        +    '<div class="col-md-4">'
                                         +        '<input type="number" class="form-control at" placeholder="Tax" name="Tax" min="0" id="tax">'
                                         +    '</div>'
-                                        +    '<div class="col-md-3">'
+                                        +    '<div class="col-md-4">'
                                         +            '<select  class="form-control" data-style="btn btn-defuil btn-block" title="Payment Method" data-size="5" name="payment" id="payment">'
                                         +               ' @foreach($payments as $payment)'
                                         +                '    <option value="{{$payment->id}}" > {{$payment->name}} </option>'
@@ -242,7 +244,7 @@ $(document).ready(function(){
                 
             })  
         }
-         $('#medication_name').val('');
+        $('#medication_name').val('');
         $('#medicationList').fadeOut();
     });
 });
@@ -268,7 +270,6 @@ $(document).ready(function(){
             }     
             i++; 
         }
-        
         var data = 0;
         var total = 0;
         var subtotal = 0;
@@ -286,6 +287,13 @@ $(document).ready(function(){
     });
     $("body").delegate('#purchaseid','click', function(e){
             e.preventDefault();
+
+            // var = 
+
+
+
+
+
             var _token = $('input[name="_token"]').val();
             var id_product = getData($('input[name="id[]"]'));
             var packages = getData($('input[name="package[]"]'));
@@ -294,24 +302,24 @@ $(document).ready(function(){
             var itemPrice = getData($('input[name="itemPrice[]"]'));
             var subItem = getData($('input[name="subitem[]"]'));
             var subPrice = getData($('input[name="subPrice[]"]'));
-            var supplier_id = $('#supplier').val();
+            // var supplier_id = $('#supplier').val();
             var tax = $('#tax').val();
             var discount = $('#discount').val();
             var payment = $('#payment').val();
             var remark = $('#remark').val();
 
             $.ajax({
-                url:"{{route('purchase.store')}}",
+                url:"{{route('pos.store')}}",
                 method:"POST",
                 dataType: 'json',
                 data:{id_product:id_product, _token: _token, packages:packages, packagePrice:packagePrice, 
                         items:items, itemPrice:itemPrice, subItem:subItem, subPrice:subPrice, 
-                        supplier_id:supplier_id, tax:tax, discount:discount, payment:payment, remark:remark },
+                        tax:tax, discount:discount, payment:payment, remark:remark },
                 success: function(total) {
                             // console.log('success: '+ data);
                             // console.log(data);
-                            // console.log(total);
-                            window.location.href = "/purchase";
+                            console.log(total);
+                            // window.location.href = "/pos";
                         },
                 error: function(data) {
                             var errors = data.responseJSON;

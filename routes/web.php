@@ -46,6 +46,11 @@ Route::post('/purchase/fetch','PurchaseController@fetch')->name('purchase.fetch'
 Route::post('/purchase/add','PurchaseController@add')->name('purchase.add');
 Route::post('/purchase/store','PurchaseController@store')->name('purchase.store');
 
+Route::resource('pos','POSController');
+Route::post('/pos/fetch','POSController@fetch')->name('pos.fetch');
+Route::post('/pos/add','POSController@add')->name('pos.add');
+Route::post('/pos/store','POSController@store')->name('pos.store');
+
 
 // Route::get('autocomplete-search',array('as'=>'autocomplete.search','uses'=>'PurchaseController@index'));
 

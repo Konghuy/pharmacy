@@ -95,4 +95,72 @@ class PurchaseController extends Controller
         
          return Response::json($qtyPro);
     }
+
+    public function edit($id)
+    {
+        $purchase = Purchase::find($id);
+        $purchaseItem = PurchaseItem::where('purchase_id',$purchase->id)->get();
+        $supplers = Supplier::all();
+        $payments = Payment::all();
+        // dd($purchaseItem);
+         return view('purchase.edit', [
+             'purchase' => $purchase,
+             'purchaseItems' => $purchaseItem,
+             'suppliers' => $supplers,
+             'payments' => $payments
+
+            ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $purchase = Purchase::find($id);
+        $purchase->suppiler_id = $request->supplier_id;
+        $purchase->discount = $request->discount;
+        $purchase->tax = $request->tax;
+        $purchase->payment_method_id = $request->payment;
+        $purchase->remark = $request->remark;
+        $purchase->updated_by = 1;
+        $purchase->updated_at = Carbon::now();
+        $purchase->grand_total = $request->total;
+        $purchase->update();
+        
+        // Loop data add to PurchaseItem
+        $purchaseItem = PurchaseItem::where('purchase_id', $id)->get();
+
+        $numRow = count($purchaseItem);
+        
+        for($j=0; $j<$numRow; $j++){
+            $Item = PurchaseItem::where('purchase_id', $id)
+                                ->where('product_id', $request->id_product[$j])          
+                                ->first();
+            // Old stock proccess
+            $stock = Stock::where('pro_id',$request->id_product[$j])->first();
+            //Finding stock update and delete the old stock. b4 update new.
+            $stock->stock_package = $stock->stock_package - $Item->purchase_items_in_pack;
+            $stock->stock_item = $stock->stock_item - $Item->purchase_sub_items_in_item;
+            $stock->stock_subItem = $stock->stock_subItem - $Item->purchase_qty;
+            $stock->update();
+
+            $Item->current_items_in_pack = $stock->stock_package;
+            $Item->current_sub_items_in_item = $stock->stock_item;
+            $Item->current_qty = $stock->stock_subItem;
+            // Add recode to Purchase Item
+            $Item->purchase_items_in_pack = $request->packages[$j];
+            $Item->purchase_items_unit_cost = $request->packagePrice[$j];
+            $Item->purchase_sub_items_in_item = $request->items[$j];
+            $Item->purchase_sub_items_unit_cost= $request->itemPrice[$j];
+            $Item->purchase_qty = $request->subItem[$j];
+            $Item->purchase_price = $request->subPrice[$j];
+            $Item->update(); 
+            // Add stock 
+            $stock->stock_package = $stock->stock_package + $request->packages[$j];
+            $stock->stock_item =  $stock->stock_item + $request->items[$j];
+            $stock->stock_subItem = $stock->stock_subItem +  $request->subItem[$j];
+            $stock->update(); 
+        }
+        //  $stock = Stock::where('pro_id',23)->first();
+        return Response::json($numRow);
+
+    }
 }
