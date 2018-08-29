@@ -21,6 +21,15 @@ class POSController extends Controller
             'medications' => $medication
             ]);
     }
+    public function alert(){
+        // $pos = POS::all();
+        $medication = Medication::where('expiry_date' , '>=',  Carbon::now())->get();
+        $expire = count($medication);
+        // dd($expire);
+        return view('layouts.nav', [
+            'expired' => $expire
+        ]);
+    }
     public function create(){
         $medication = Medication::all();
         $payment = Payment::all();
@@ -47,12 +56,6 @@ class POSController extends Controller
     }
     public function store(Request $request){
 
-        // $stock = Stock::all();
-        // $medication = Medication::all();
-
-        // $stockAvilable = ($stock->stock_package * $medication->sub_items_in_item * $medication->qty) +
-        //                  ($stock->stock_item * $medication->qty) + $stock->stock_subItem; 
-
         $numRow = count($request->id_product);
         
         for($i=0; $i<$numRow; $i++){
@@ -65,66 +68,80 @@ class POSController extends Controller
             $QtyOrder[] = ($request->packages[$i] *  $medication->sub_items_in_item * $medication->qty) + 
                         ($request->items[$i] * $medication->qty ) + $request->subItem[$i];
 
-            if( $stockAvilable[$i] > $QtyOrder[$i]){
-                // return Response::json("Stock Avilable");
+            if( $stockAvilable[$i] >= $QtyOrder[$i]){
                 $status = true;
             }else{
-                // return Response::json("Stock Not Avilable");
                 $status = false;
+                // return Response::json("Stock Not Avilable".'-'. $stockAvilable[$i]."-".$QtyOrder[$i]);
                 break;
-
             }
-            // return Response::json($stockAvilable);
         }
 
-        // $purchase = new Purchase();
-        // $purchase->suppiler_id = $request->supplier_id;
-        // $purchase->discount = $request->discount;
-        // $purchase->tax = $request->tax;
-        // $purchase->payment_method_id = $request->payment;
-        // $purchase->remark = $request->remark;
-        // $purchase->created_by = 1;
-        // $purchase->created_at = Carbon::now();
-        //     $qtyPro = count($request->id_product);
-        //     $total = 0;
-        //     for($i=0; $i<$qtyPro; $i++){
-        //         $total += ($request->packages[$i] * $request->packagePrice[$i])
-        //                 + ($request->items[$i] * $request->itemPrice[$i])
-        //                 + ($request->subItem[$i] * $request->subPrice[$i]);   
-        //     }  
-        //     $Gtotal = $total - $request->discount - $request->tax;
-        // $purchase->grand_total = $Gtotal;
-        // $purchase->save();
-        // // Loop data add to PurchaseItem
-        // for($j=0; $j<$qtyPro; $j++){
-        //     $purchaseItem = new PurchaseItem();
-        //     $purchaseItem->purchase_id = $purchase->id;
-        //     $purchaseItem->product_id = $request->id_product[$j];
-        //     //Query data from stock add to purchaseItem
-        //     $stock = Stock::where('pro_id',$request->id_product[$j])->first();
-        //     $purchaseItem->current_items_in_pack = $stock->stock_package;
-        //     $purchaseItem->current_sub_items_in_item = $stock->stock_item;
-        //     $purchaseItem->current_qty = $stock->stock_subItem;
-        //     // Add recode to Purchase Item
-        //     $purchaseItem->purchase_items_in_pack = $request->packages[$j];
-        //     $purchaseItem->purchase_items_unit_cost = $request->packagePrice[$j];
-        //     $purchaseItem->purchase_sub_items_in_item = $request->items[$j];
-        //     $purchaseItem->purchase_sub_items_unit_cost= $request->itemPrice[$j];
-        //     $purchaseItem->purchase_qty = $request->subItem[$j];
-        //     $purchaseItem->purchase_price = $request->subPrice[$j];
-        //     $purchaseItem->save(); 
-        //     // Add stock 
-        //     $stock->stock_package = $stock->stock_package + $request->packages[$j];
-        //     $stock->stock_item =  $stock->stock_item + $request->items[$j];
-        //     $stock->stock_subItem = $stock->stock_subItem +  $request->subItem[$j];
-        //     $stock->update(); 
-        // }
+        // 
         if($status==true){
-            return Response::json("Stock Avilable");
-        }else{
-            return Response::json("Stock Not Avilable");
+            $order = new POS();
+            $order->discount = $request->discount;
+            $order->tax = $request->tax;
+            $order->payment_method_id = $request->payment;
+            $order->grand_total = $request->total;
+            $order->remark = $request->remark;
+            $order->created_by = 1;
+            $order->created_at = Carbon::now();
+            $order->save();
+            // Loop data add to OrderItem
+            for($j=0; $j<$numRow; $j++){
+                $orderItems = new OrderItems();
+                $orderItems->order_id = $order->id;
+                $orderItems->product_id = $request->id_product[$j];
+                //Query data from stock add to OrderItem
+                $stock = Stock::where('pro_id',$request->id_product[$j])->first();
+                $orderItems->current_items_in_pack = $stock->stock_package;
+                $orderItems->current_sub_items_in_item = $stock->stock_item;
+                $orderItems->current_qty = $stock->stock_subItem;
+                // Add recode to Order Item
+                $orderItems->order_items_in_pack = $request->packages[$j];
+                $orderItems->order_items_in_pack_cost = $request->packagePrice[$j];
+                $orderItems->order_sub_items_in_item = $request->items[$j];
+                $orderItems->order_sub_items_in_item_cost= $request->itemPrice[$j];
+                $orderItems->order_qty = $request->subItem[$j];
+                $orderItems->order_price = $request->subPrice[$j];
+                $orderItems->save(); 
+                
+                $medication = Medication::where('id',$request->id_product[$j])->first();
+                $stockAvilable[$j] = ($stock->stock_package * $medication->sub_items_in_item * $medication->qty) +
+                                ($stock->stock_item * $medication->qty) + $stock->stock_subItem; 
+
+                $QtyOrder[$j] = ($request->packages[$j] *  $medication->sub_items_in_item * $medication->qty) + 
+                            ($request->items[$j] * $medication->qty ) + $request->subItem[$j];
+
+                $cutStock[$j] = $stockAvilable[$j] - $QtyOrder[$j];
+
+                if($cutStock[$j] >= $medication->sub_items_in_item){
+                    $stock->stock_package = (int)($cutStock[$j] / ($medication->sub_items_in_item* $medication->qty));
+                   
+                    $Mpk = $cutStock[$j] % ($medication->sub_items_in_item * $medication->qty);
+                    if($Mpk > $medication->qty ){
+                        $stock->stock_item = (int)($Mpk /$medication->qty);
+                        $stock->stock_subItem = $Mpk % $medication->qty;
+                    }else{
+                        $stock->stock_item = 0;
+                        $stock->stock_subItem =$Mpk;
+                    }
+                    
+                }elseif($cutStock[$j] >= $medication->qty){
+                        $stock->stock_package = 0;
+                        $stock->stock_item = (int)($cutStock[$j] /$medication->qty);
+                        $stock->stock_subItem = $cutStock[$j] % $medication->qty;
+                }else{
+                    $stock->stock_package = 0;
+                    $stock->stock_item = 0;
+                    $stock->stock_subItem = $cutStock[$j];
+                }
+                // return  Response::json($stockAvilable[$j]."-".$QtyOrder[$j]."-".$cutStock[$j]);
+                $stock->update(); 
+             }
         }
-        //  return Response::json($stock);
+         return Response::json($status);
     }
 
 }

@@ -55,7 +55,7 @@
         </li>
 
         <li class=@yield('pos')>
-            <a href="pos">
+            <a href="/pos">
                 <i class="ti-shopping-cart"></i>
                 <p>POS</p>
             </a>
@@ -110,12 +110,12 @@
             </div>
         </li>
 
-        <li class=@yield('allSales')>
+        <!-- <li class=@yield('allSales')>
             <a>
                 <i class="ti-money"></i>
                 <p>All Sales</p>
             </a>
-        </li>
+        </li> -->
 
         <li class=@yield('li-import')>
             <a data-toggle="collapse" href="#export" aria-expanded=@yield('import')>
@@ -137,16 +137,20 @@
         </li>
 
         <li class=@yield('stockAlert')>
-            <a>
+            <a href="/stockInfo">
                 <i class="ti-support"></i>
-                <p>Stock Alert</p>
+                <p>Stock Information
+                    <b class="label label-warning">10</b>
+                </p>
             </a>
         </li>
 
         <li class=@yield('expireAlert')>
-            <a>
+            <a href="/expired">
                 <i class="ti-support"></i>
-                <p>Expire Alert</p>
+                <p>Expire Alert
+                    <b class="label label-danger">10</b>
+                </p>
             </a>
         </li>
 

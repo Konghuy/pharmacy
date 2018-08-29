@@ -19,7 +19,7 @@
                                 <div class="col-xs-7">
                                     <div class="numbers">
                                         <p>Sales today</p>
-                                        50$
+                                        {{$saletoday}} $
                                     </div>
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                                 <div class="col-xs-7">
                                     <div class="numbers">
                                         <p>Expend</p>
-                                        $75
+                                        {{$expendtoday}} $
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                                 <div class="col-xs-7">
                                     <div class="numbers">
                                         <p>Medication</p>
-                                        23
+                                        {{$medication}}
                                     </div>
                                 </div>
                             </div>

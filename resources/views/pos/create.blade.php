@@ -287,13 +287,6 @@ $(document).ready(function(){
     });
     $("body").delegate('#purchaseid','click', function(e){
             e.preventDefault();
-
-            // var = 
-
-
-
-
-
             var _token = $('input[name="_token"]').val();
             var id_product = getData($('input[name="id[]"]'));
             var packages = getData($('input[name="package[]"]'));
@@ -302,6 +295,7 @@ $(document).ready(function(){
             var itemPrice = getData($('input[name="itemPrice[]"]'));
             var subItem = getData($('input[name="subitem[]"]'));
             var subPrice = getData($('input[name="subPrice[]"]'));
+            var total = $('#total').val();
             // var supplier_id = $('#supplier').val();
             var tax = $('#tax').val();
             var discount = $('#discount').val();
@@ -313,13 +307,14 @@ $(document).ready(function(){
                 method:"POST",
                 dataType: 'json',
                 data:{id_product:id_product, _token: _token, packages:packages, packagePrice:packagePrice, 
-                        items:items, itemPrice:itemPrice, subItem:subItem, subPrice:subPrice, 
+                        items:items, itemPrice:itemPrice, subItem:subItem, subPrice:subPrice,total:total, 
                         tax:tax, discount:discount, payment:payment, remark:remark },
-                success: function(total) {
-                            // console.log('success: '+ data);
-                            // console.log(data);
-                            console.log(total);
-                            // window.location.href = "/pos";
+                success: function(data) {
+                            if(data==true){
+                                window.location.href = "/pos";
+                            }else{
+                                alert("Error: not Enought Stock Avilable.")
+                            }
                         },
                 error: function(data) {
                             var errors = data.responseJSON;

@@ -1,50 +1,44 @@
 @extends('master')
-@section('title', 'POS')
-@section('panel-title', 'POS')
-@section('pos', 'active')
+@section('title', 'Expired Alert')
+@section('panel-title', 'Product Expired')
+@section('expireAlert', 'active')
 
 @section('content')
-
 <div class="content">
         <div class="container-fluid">
-                <a href="/pos/create" class="btn btn-wd btn-default btn-fill btn-move-right pull-right">
-                        Add POS    
-                    <span class="btn-label">
-                            <i class="ti-angle-right"></i>
-                        </span>  
-                    </a>
-                    <div class="clearfix"></div>
             <div class="row">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-content">
-                                    <h4>POS Infomation</h4>
+                                    <h4>Expired Infomation</h4>
                                 <div class="toolbar">
                                     <!--Here you can write extra buttons/actions for the toolbar-->
                                 </div>
                                 <table id="bootstrap-table" class="table">
                                     <thead>
-                                    {{-- <th data-field="state" data-checkbox="true"></th> --}}
+                               
                                         <th data-field="id" data-sortable="true">ID</th>
-                                        <th data-field="supplier" data-sortable="true">User</th>
-                                        <th data-field="discount" data-sortable="true">Discount</th>
-                                        <th data-field="tax" data-sortable="true">Tax</th>
-                                        <th data-field="total" data-sortable="true">Total</th>
-                                        <th data-field="manu" data-sortable="true">Order at</th>
+                                        <th data-field="code" data-sortable="true">Code</th>
+                                        <th data-field="name" data-sortable="true">Name</th>
+                                        <th data-field="pk" data-sortable="true">Package</th>
+                                        <th data-field="item" data-sortable="true">Item</th>
+                                        <th data-field="subItem" data-sortable="true">Sub-Item</th>
+                                        <th data-field="status" data-sortable="true">Status</th>
                                         <th data-field="actions" >Actions control</th>
                                     </thead>
                                     <tbody>
-                                        @foreach($pos as $order)
+                                        @foreach($expired as $expire)
                                         <tr>
-                                            <td>{{$order->id}}</td>
-                                            <td>{{$order->created_by}}</td>
-                                            <td>{{$order->discount}}</td>
-                                            <td>{{$order->tax}}</td>
-                                            <td>{{$order->grand_total}}</td>
-                                            <td>{{Carbon\Carbon::parse($order->created_at)->format('d/m/Y')}}</td>                                  
+                                            <td>{{$expire->id}}</td>
+                                            <td>{{$expire->pro_code}}</td>
+                                            <td>{{$expire->pro_name}}</td>
+                                            <td>N/A</td>
+                                            <td>N/A</td>
+                                            <td>N/A</td>
+                                            <td>Expired</td>
                                             <td>
-                                                    <a href="/pos/{{$order->id}}" class="btn btn-simple btn-info btn-icon"><i class="ti-image"></i></a>
-                                                    <a href="/pos/{{$order->id}}/edit" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
+                                                    <a href="/expired/{{$expire->id}}" class="btn btn-simple btn-info btn-icon"><i class="ti-image"></i></a>
+                                                    <a href="/expired/{{$expire->id}}/edit" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
                                                     <a href="#" class="btn btn-simple btn-danger btn-icon remove" id="delete" onclick="demo.showSwal('warning-message-and-confirmation')"><i class="ti-close"></i></a>
                                                      <!-- {{-- /package/{{$package->id}} --}} -->
                                             </td>

@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('dashbord');
-});
+// Route::get('/', function () {
+//     return view('dashbord');
+// });
 
 Route::get('/Login', function () {
     return view('Login.login');
@@ -51,10 +51,10 @@ Route::post('/pos/fetch','POSController@fetch')->name('pos.fetch');
 Route::post('/pos/add','POSController@add')->name('pos.add');
 Route::post('/pos/store','POSController@store')->name('pos.store');
 
+Route::get('/','DefultController@dashboard');
+Route::get('/stockInfo','DefultController@stock');
+Route::get('/expired','DefultController@expired');
 
-// Route::get('autocomplete-search',array('as'=>'autocomplete.search','uses'=>'PurchaseController@index'));
-
-// Route::get('autocomplete-ajax',array('as'=>'autocomplete.ajax','uses'=>'PurchaseController@ajaxData'));
 
 Auth::routes();
 
