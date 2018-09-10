@@ -8,4 +8,8 @@ class PurchaseItem extends Model
 {
     protected $table = 'purchase_item';
     public $timestamps = false;
+
+    public function medicine(){
+        return $this->belongsTo('App\Medication');
+    }
 }

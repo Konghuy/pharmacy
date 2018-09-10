@@ -32,15 +32,15 @@
                                             <td>{{$expire->id}}</td>
                                             <td>{{$expire->pro_code}}</td>
                                             <td>{{$expire->pro_name}}</td>
-                                            <td>N/A</td>
-                                            <td>N/A</td>
-                                            <td>N/A</td>
+                                            <td>{{getVal($expire->stock == null ? null : $expire->stock, $expire->stock, 'stock_package')}}</td>
+                                            <td>{{getVal($expire->stock== null ? null : $expire->stock, $expire->stock, 'stock_item')}}</td>
+                                            <td>{{getVal($expire->stock== null ? null : $expire->stock, $expire->stock,'stock_subItem')}}</td>
                                             <td>Expired</td>
                                             <td>
-                                                    <a href="/expired/{{$expire->id}}" class="btn btn-simple btn-info btn-icon"><i class="ti-image"></i></a>
-                                                    <a href="/expired/{{$expire->id}}/edit" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
-                                                    <a href="#" class="btn btn-simple btn-danger btn-icon remove" id="delete" onclick="demo.showSwal('warning-message-and-confirmation')"><i class="ti-close"></i></a>
-                                                     <!-- {{-- /package/{{$package->id}} --}} -->
+                                                    <a href="/expired/{{$expire->id}}" class="btn btn-simple btn-info btn-icon">Cut Stock</a>
+                                                    <!-- <a href="/expired/{{$expire->id}}/edit" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
+                                                    <a href="#" class="btn btn-simple btn-danger btn-icon remove" id="delete" onclick="demo.showSwal('warning-message-and-confirmation')"><i class="ti-close"></i></a> -->
+                                                    
                                             </td>
                                         </tr>
                                         @endforeach

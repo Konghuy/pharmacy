@@ -68,7 +68,7 @@
                    <b class="caret"></b>
                 </p>
             </a>
-            <div class="collapse" id="medication" >
+            <div class="collapse" id="medication" aria-expanded=@yield('medication') style>
                 <ul class="nav">
                     <li class=@yield('mi')>
                         <a href="/medication">
@@ -124,7 +124,7 @@
                    <b class="caret"></b>
                 </p>
             </a>
-            <div class="collapse" id="export">
+            <div class="collapse" id="export" aria-expanded=@yield('import')>
                 <ul class="nav">
                     <li class=@yield('pc')>
                         <a href="/purchase">
@@ -140,7 +140,7 @@
             <a href="/stockInfo">
                 <i class="ti-support"></i>
                 <p>Stock Information
-                    <b class="label label-warning">10</b>
+                    <b class="label label-warning">{{stockAlert()}}</b>
                 </p>
             </a>
         </li>
@@ -149,7 +149,7 @@
             <a href="/expired">
                 <i class="ti-support"></i>
                 <p>Expire Alert
-                    <b class="label label-danger">10</b>
+                    <b class="label label-danger">{{expiredAlert()}}</b>
                 </p>
             </a>
         </li>
@@ -162,7 +162,7 @@
                    <b class="caret"></b>
                 </p>
             </a>
-            <div class="collapse" id="report">
+            <div class="collapse" id="report" aria-expanded=@yield('report')>
                 <ul class="nav">
                     <li class=@yield('i')>
                         <a href="../forms/regular.html">
@@ -192,7 +192,7 @@
                        <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse" id="staff">
+                <div class="collapse" id="staff" aria-expanded=@yield('staff')>
                     <ul class="nav">
                         <li class=@yield('u')>
                             <a href="../forms/regular.html">

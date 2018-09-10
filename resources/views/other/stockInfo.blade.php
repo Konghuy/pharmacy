@@ -9,8 +9,14 @@
             <div class="row">
                     <div class="col-md-12">
                         <div class="card">
+                                <div class="card-header">
+                                <h4>Stock Infomation</h4>
+                                </div>
                             <div class="card-content">
-                                    <h4>Stock Infomation</h4>
+                                   
+                                    Note:         <h4 class="card-title label label-danger">Out of Stock</h4>
+                                            <h4 class="card-title label label-warning">Less than 1 packages</h4>
+                                            <h4 class="card-title label label-info">Avilable</h4>
                                 <div class="toolbar">
                                     <!--Here you can write extra buttons/actions for the toolbar-->
                                 </div>
@@ -28,20 +34,30 @@
                                     </thead>
                                     <tbody>
                                         @foreach($stocks as $stock)
+  
                                         <tr>
                                             <td>{{$stock->pro_id}}</td>
-                                            <td>{{$stock->pro_id}}</td>
-                                            <td>{{$stock->pro_id}}</td>
+                                            <td>{{$stock->medication->pro_code}}</td>
+                                            <td>{{$stock->medication->pro_name}}</td>
                                             <td>{{$stock->stock_package}}</td>
                                             <td>{{$stock->stock_item}}</td>
                                             <td>{{$stock->stock_subItem}}</td>
-                                            <td>Avilable</td>
-                                            <td>
-                                                    <a href="/stock/{{$stock->id}}" class="btn btn-simple btn-info btn-icon"><i class="ti-image"></i></a>
-                                                    <a href="/stock/{{$stock->id}}/edit" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
-                                                    <a href="#" class="btn btn-simple btn-danger btn-icon remove" id="delete" onclick="demo.showSwal('warning-message-and-confirmation')"><i class="ti-close"></i></a>
+                                            
+                                            
+                                                @if((($stock->stock_package) == 0)  && (($stock->stock_item) == 0) && (($stock->stock_subItem)== 0))
+                                                    <td>Out of Stock</td>
+                                                    <td><a href="/medication/{{$stock->pro_id}}" class="btn btn-simple btn-info btn-icon  label label-danger">Detail</a></td>
+                                                @elseif(($stock->stock_package) <= 1)
+                                                    <td>Less then 1 package</td>
+                                                    <td><a href="/medication/{{$stock->pro_id}}" class="btn btn-simple btn-danger btn-icon label label-warning">Detail</a></td>
+                                                @else
+                                                    <td>Avilable</td>
+                                                    <td><a href="/medication/{{$stock->pro_id}}" class="btn btn-simple btn-danger btn-icon label label-info">Detail</a></td>
+                                                @endif
+                                                    <!-- <a href="/stock/{{$stock->id}}/edit" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
+                                                    <a href="#" class="btn btn-simple btn-danger btn-icon remove" id="delete" onclick="demo.showSwal('warning-message-and-confirmation')"><i class="ti-close"></i></a> -->
                                                      <!-- {{-- /package/{{$package->id}} --}} -->
-                                            </td>
+                                            
                                         </tr>
                                         @endforeach
                                     </tbody>

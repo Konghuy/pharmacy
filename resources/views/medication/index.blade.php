@@ -30,15 +30,15 @@
                                         <th data-field="code" data-sortable="true">Code</th>
                                         <th data-field="name" data-sortable="true">Name</th>
                                         <th data-field="category" data-sortable="true">Category</th>
-                                        <th data-field="package" data-sortable="true">Package</th>
-                                        <th data-field="qtyPackage" data-sortable="true">Qty package</th>
+                                        <!-- <th data-field="package" data-sortable="true">Package</th> -->
+                                        <!-- <th data-field="qtyPackage" data-sortable="true">Qty package</th>
                                         <th data-field="PackagePrice" data-sortable="true">Price/package </th>
                                         {{-- <th data-field="itemInpackage" data-sortable="true">Item in Package</th> --}}
                                         <th data-field="qtyItem" data-sortable="true">Qty Item</th>
                                         <th data-field="priceItem" data-sortable="true">Price Item</th>
                                         {{-- <th data-field="subItem" data-sortable="true">Sub-Item</th> --}}
                                         <th data-field="qtySubItem" data-sortable="true">Qty Sub-Item</th>
-                                        <th data-field="priceSubItem" data-sortable="true">Price Sub Item</th>
+                                        <th data-field="priceSubItem" data-sortable="true">Price Sub Item</th> -->
                                         <th data-field="weight" data-sortable="true">Weight</th>
                                         <th data-field="rank_Num" data-sortable="true">Ranking</th>
                                         <th data-field="manu" data-sortable="true">Manufacturing</th>
@@ -50,16 +50,16 @@
                                         <tr>
                                             <td>{{$medication->pro_code}}</td>
                                             <td>{{$medication->pro_name}}</td>
-                                            <td>{{$medication->cat_id}}</td>
+                                            <td>{{$medication->category->name}}</td>
 
-                                            <td>{{$medication->package_id}}</td>
+                                            <!-- <td>{{$medication->package_id}}</td>
                                             <td>{{$medication->items_in_pack}}</td>
                                             <td>{{$medication->item_unit_cost}}</td>
 
                                             <td>{{$medication->sub_items_in_item}}</td>
                                             <td>{{$medication->sub_item_unit_cost}}</td>
                                             <td>{{$medication->qty}}</td>
-                                            <td>{{$medication->price}}</td>
+                                            <td>{{$medication->price}}</td> -->
 
                                             <td>{{$medication->weight}}</td> 
                                             <td>{{$medication->rank_number_id}}</td>

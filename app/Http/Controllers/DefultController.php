@@ -26,15 +26,13 @@ class DefultController extends Controller
     
     public function stock(){
         $stock = Stock::all();
-        // dd($stock);
         return view('other.stockinfo', [
             'stocks' => $stock
         ]);
     }
     public function expired(){
-        $medication = Medication::where('expiry_date' , '>=',  Carbon::now())->get();
-        // $expire = count($medication);
-        // dd($medication->id);
+        $medication = Medication::where('expiry_date' , '<=',  Carbon::now())->get();
+        // dd($medication[0]->stock);
         return view('other.expired', [
             'expired' => $medication
         ]);

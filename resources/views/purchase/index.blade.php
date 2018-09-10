@@ -40,7 +40,7 @@
                                         @foreach($purchases as $purchase)
                                         <tr>
                                             <td>{{$purchase->id}}</td>
-                                            <td>{{$purchase->suppiler_id}}</td>
+                                            <td>{{$purchase->supplier->name}}</td>
                                             <td>{{$purchase->discount}}</td>
                                             <td>{{$purchase->tax}}</td>
                                             <td>{{$purchase->grand_total}}</td>

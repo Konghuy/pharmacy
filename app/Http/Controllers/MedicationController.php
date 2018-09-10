@@ -12,6 +12,7 @@ use App\Rank;
 use App\Supplier;
 use App\Payment;
 use App\Stock;
+use App\PurchaseItem;
 
 
 class MedicationController extends Controller
@@ -116,5 +117,15 @@ class MedicationController extends Controller
         return redirect('/medication');
         //  $str = $request->manuDate . ", " .  date('Y-m-d', strtotime($request->manuDate));
         // return $str;
+    }
+    public function show($id)
+    {
+        $medication = Medication::find($id);
+        $package = Packages::all();
+        // dd($package[$medication->sub_items_in_item_package_id]);
+        return view('medication.show', [
+            'medication' => $medication,
+            'packages' => $package
+            ]);
     }
 }

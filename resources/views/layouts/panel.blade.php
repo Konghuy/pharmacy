@@ -16,21 +16,47 @@
         </div>
         <div class="collapse navbar-collapse">
 
-            <form class="navbar-form navbar-left navbar-search-form" role="search">
+            <!-- <form class="navbar-form navbar-left navbar-search-form" role="search">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-search"></i></span>
                     <input type="text" value="" class="form-control" placeholder="Search...">
                 </div>
-            </form>
+            </form> -->
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="#stats" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
-                        <i class="ti-panel"></i>
-                        <p>Stats</p>
+                        <i class="ti-shopping-cart"></i>
+                            Sale
+                        <span class="label label-info">{{saletoday()}}</span>
                     </a>
                 </li>
-                <li class="dropdown">
+
+                <li>
+                    <a href="#stats" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
+                        <i class="ti-truck"></i>
+                            Purchase
+                        <span class="label label-info">{{purchasetoday()}}</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/stockInfo" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
+                        <i class="ti-support"></i>
+                            Stock
+                        <span class="label label-info">{{stockAlert()}}</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="dropdown-toggle btn-magnify" data-toggle="dropdown" href="/expired">
+                        <i class="ti-support"></i>
+                            Expire
+                        <span class="label label-info">{{expiredAlert()}}</span>
+                    </a>
+                </li>
+
+                <!-- <li class="dropdown">
                     <a href="#notifications" class="dropdown-toggle btn-rotate" data-toggle="dropdown">
                         <i class="ti-bell"></i>
                         <span class="notification">5</span>
@@ -46,13 +72,13 @@
                         <li><a href="#not4">Notification 4</a></li>
                         <li><a href="#another">Another notification</a></li>
                     </ul>
-                </li>
+                </li> -->
                 <li>
                     <a href="#settings" class="btn-rotate">
                         <i class="ti-settings"></i>
-                        <p class="hidden-md hidden-lg">
+                        <!-- <p class="hidden-md hidden-lg"> -->
                             Settings
-                        </p>
+                        <!-- </p> -->
                     </a>
                 </li>
                 <li>

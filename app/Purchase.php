@@ -9,7 +9,7 @@ class Purchase extends Model
     protected $table = 'purchase';
 
     public function supplier(){
-        return $this->hasMany('App\Supplier');
+        return $this->belongsTo('App\Supplier' ,'suppiler_id');
     }
 
 }

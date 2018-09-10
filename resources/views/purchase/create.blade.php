@@ -272,15 +272,19 @@ $(document).ready(function(){
         var data = 0;
         var total = 0;
         var subtotal = 0;
+
         for(data = 0; data < length; data++){
             subtotal = (x[data][0]* x[data][1]) + (x[data][2]* x[data][3])+(x[data][4]* x[data][5]);
             total += subtotal; 
         }
-
+        
         total += - $('#discount').val() - $('#tax').val();
-        $('#total').val(total.toFixed(2));
-        // alert(total);
-        // console.log(total);
+        // $('#total').val(total.toFixed(2));
+        $('#total').val(
+            <?php
+                    
+            ?>
+        );
 
         
     });
@@ -308,9 +312,7 @@ $(document).ready(function(){
                         items:items, itemPrice:itemPrice, subItem:subItem, subPrice:subPrice, 
                         supplier_id:supplier_id, tax:tax, discount:discount, payment:payment, remark:remark },
                 success: function(total) {
-                            // console.log('success: '+ data);
-                            // console.log(data);
-                            // console.log(total);
+
                             window.location.href = "/purchase";
                         },
                 error: function(data) {

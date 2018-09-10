@@ -21,15 +21,6 @@ class POSController extends Controller
             'medications' => $medication
             ]);
     }
-    public function alert(){
-        // $pos = POS::all();
-        $medication = Medication::where('expiry_date' , '>=',  Carbon::now())->get();
-        $expire = count($medication);
-        // dd($expire);
-        return view('layouts.nav', [
-            'expired' => $expire
-        ]);
-    }
     public function create(){
         $medication = Medication::all();
         $payment = Payment::all();
