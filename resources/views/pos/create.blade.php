@@ -27,12 +27,15 @@
                                         <th>ID</th>
                                         <th>Code</th>
                                         <th>Name</th>
-                                        <th>Packages</th>
-                                        <th>Price/Package</th>
-                                        <th>Item Packgaes</th>
-                                        <th>Price/Item</th>
-                                        <th>Sub Item</th>
-                                        <th>Price/Sub-Item</th>
+                                        <th>Package</th>
+                                        <th></th>
+                                        <th>Price</th>
+                                        <th>Item</th>
+                                        <th></th>
+                                        <th>Price</th>
+                                        <th>Sub-Item</th>
+                                        <th></th>
+                                        <th>Price</th>
                                         <!-- <th>Sub total</th> -->
                                         <th>Action</th>
                                     </thead>
@@ -98,9 +101,22 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-    
     $('#medication_name').keyup(function(){
-        
+        var x = 0;
+        if($('#bootstrap-table tbody tr').length > 0){
+            if($(".no-records-found").length == 0){
+                // console.log('hello');
+                var product_id = getData($('input[name="id[]"]'));  
+                // var countID = product_id.lenght;
+                console.log(product_id);
+                console.log( jQuery.type(product_id));
+                x = 0;         
+            }
+            else{
+                x = 1;
+                alert('Hello');
+            }
+        }
         var query = $(this).val();
         if(query != ''){
             var _token = $('input[name="_token"]').val();
@@ -110,18 +126,27 @@ $(document).ready(function(){
                 dataType: 'json',
                 data:{query:query, _token: _token},
                 success:function(data){
-                    // alert(data);
                      $('#medicationList').fadeIn();
                       var str = '<ul class="mydd">';
                         $.each( data, function( keys, values ) {
                             $.each( values, function( key, value ) {
-                                if(key=="pro_code"){
-                                    str += '<li class="lst"><a href="#">' + value;
-                                }
-                                if(key=="pro_name"){
-                                    str +=  '-' + value + '</a></li>';
-                                    '{{csrf_field()}}'
-                                }
+                                // if(key=="id"){
+                                //      for(i=0; i<product_id.length; i++){
+                                //          if(values !== product_id[i]){
+                                //             x = 1;
+                                //          }
+                                //      }
+                                // if(x == 1){
+                                    if(key=="pro_code"){
+                                                str += '<li class="lst"><a href="#">' + value;
+                                            }
+                                            if(key=="pro_name"){
+                                                str +=  '-' + value + '</a></li>';
+                                                '{{csrf_field()}}'
+                                            }
+                                // }
+                                // }
+                                
                             })
                         })
                         str += '</ul>';
@@ -142,10 +167,12 @@ $(document).ready(function(){
                 method:"POST",
                 data:{query:query, _token: _token},
                 success:function(data){
+                 
                 //  $('#medicationList').fadeIn();
                     var str = '<tr>';
                         $.each( data, function( keys, values ) {
-                            $.each( values, function( key, value ) {
+                            if(keys == 'data'){
+                                $.each( values, function( key, value ) {
                                 if(key=="id"){
                                     str += '<td><input type="hidden" name="id[]" value="'+value+'">' + value + "</td>";
                                 }
@@ -164,16 +191,32 @@ $(document).ready(function(){
                                 if(key=="price"){
                                     $scost = value;
                                 }
+                                })
+                            }else{
+                                $.each( values, function( key, value ) {
+                                if(key=="stock_package"){
+                                    $spk = value;
+                                }
+                                if(key=="stock_item"){
+                                    $sit = value;
+                                }
+                                if(key=="stock_item"){
+                                    $ssi = value;
+                                }
+                                })
+                            }
 
-                            })
                         })
-                        str +='<td ><input type="number" class="form-control attrName at" min=0  name="package[]"></td>';
+                        str +='<td ><input type="number" class="form-control attrName at" min=0  name="package[]" ></td>';
+                        str += '<td>/'+$spk+'</td>';
                         str +='<td ><input type="number" class="form-control attrName at" min="0" name="packagePrice[]" disabled value="'+$pcost+'"></td>';
                         str +='<td ><input type="number" class="form-control attrName at" min="0" name="item[]"></td>';
+                        str += '<td>/'+$sit+'</td>';
                         str +='<td ><input type="number" class="form-control attrName at" min="0" name="itemPrice[]" disabled value="'+$icost+'"></td>';
                         str +='<td ><input type="number" class="form-control attrName at" min="0" name="subitem[]"></td>';
+                        str += '<td>/'+$ssi+'</td>';
                         str +='<td ><input type="number" class="form-control attrName at" min="0" name="subPrice[]" disabled value="'+$scost+'"></td>';
-                        // str +='<td ><input type="number" class="form-control" min="0" name="subtotal[]" disabled></td>';
+        
                          str += '<td><a href="#" class="btn btn-simple btn-danger btn-icon dt" id="btnDelete"><i class="ti-close"></i></a></td></tr>';
                          $('#bootstrap-table > tbody').prepend(str);
                          $(".no-records-found").remove();

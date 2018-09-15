@@ -24,9 +24,11 @@ class POSController extends Controller
     public function create(){
         $medication = Medication::all();
         $payment = Payment::all();
+        $stock = Stock::all();
         return view('pos.create', [
             'medications' => $medication,
-            'payments' => $payment
+            'payments' => $payment,
+            'stock' => $stock
             ]);
     }
     public function fetch(Request $request){
@@ -41,8 +43,12 @@ class POSController extends Controller
     public function add(Request $request){
         if($request->get('query')){
             $query = $request->get('query');      
-            $data = Medication::where('pro_code',$query)->get(); 
-            return Response::json($data);
+            $data = Medication::where('pro_code',$query)->first(); 
+            $stock = Stock::Where('pro_id',$data->id)->first();
+            return Response::json(array(
+                'data' => $data,
+                'stock' => $stock,
+            ));
         }
     }
     public function store(Request $request){
