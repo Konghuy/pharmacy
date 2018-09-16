@@ -61,7 +61,7 @@
                                     <label class="control-label">
                                         Category <star>*</star>
                                     </label>
-                                    <select class="selectpicker" data-style="btn btn-defuil btn-block" title="Select Category" data-size="5" name="category" required="true">
+                                    <select class="selectpicker" data-style="btn btn-defuil btn-block" title="--Select Category--" data-size="5" name="category" required="true">
                                         @foreach($categorys as $category)
                                             <option value="{{$category->id}}">{{$category->name}}</option>
                                         @endforeach

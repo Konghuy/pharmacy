@@ -27,8 +27,10 @@
                                         <th data-field="actions" >Actions control</th>
                                     </thead>
                                     <tbody>
+                                   
                                         @foreach($expired as $expire)
                                         <tr>
+                                       
                                             <td>{{$expire->id}}</td>
                                             <td>{{$expire->pro_code}}</td>
                                             <td>{{$expire->pro_name}}</td>

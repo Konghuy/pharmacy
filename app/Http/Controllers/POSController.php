@@ -32,11 +32,24 @@ class POSController extends Controller
             ]);
     }
     public function fetch(Request $request){
-        if($request->get('query')){
-            $query = $request->get('query');      
+        if($request->get('query') &&  $request->get('product_id')==null || $request->get('count_id')==null){
+            $query = $request->get('query');    
             $data = Medication::where('pro_name','LIKE','%'.$query.'%')
                             -> orwhere('pro_code','LIKE','%'.$query.'%')->get(); 
-            return Response::json($data);
+            
+                            return Response::json($data);
+        }
+        elseif($request->get('query') &&  $request->get('product_id') && $request->get('count_id') ){
+            $query = $request->get('query'); 
+            $product_id =  $request->get('product_id');
+            $counter = $request->get('count_id');
+
+            $data = Medication::where('pro_name','LIKE','%'.$query.'%')
+                            -> orwhere('pro_code','LIKE','%'.$query.'%')
+                            ->whereNotIn('id', $product_id)
+                            ->get(); 
+            
+                            return Response::json($data);
         }
     }
 

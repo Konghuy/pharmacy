@@ -24,7 +24,7 @@ function purchasetoday(){
     return count($expend);
 }
 function getVal($object, $condition, $method){
-    if(($object ==NULL) || ($condition == '0')  || ($condition == null)){
+    if(($object ==NULL) || ($condition == null)){
         return 'N/A';
     }
     else{

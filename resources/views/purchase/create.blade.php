@@ -101,7 +101,15 @@
 $(document).ready(function(){
     
     $('#medication_name').keyup(function(){
-        
+        var x = 0;
+        if($('#bootstrap-table tbody tr').length > 0){
+            if($(".no-records-found").length == 0){
+                // console.log('hello');
+                var product_id = getData($('input[name="id[]"]'));  
+                var count_id = $('input[name="id[]"]').toArray().length;
+                // var countID = product_id.lenght;
+            }
+        }
         var query = $(this).val();
         if(query != ''){
             var _token = $('input[name="_token"]').val();
@@ -109,7 +117,7 @@ $(document).ready(function(){
                 url:"{{route('purchase.fetch')}}",
                 method:"POST",
                 dataType: 'json',
-                data:{query:query, _token: _token},
+                data:{query:query, _token: _token, product_id: product_id, count_id: count_id},
                 success:function(data){
                      $('#medicationList').fadeIn();
                       var str = '<ul class="mydd">';

@@ -32,6 +32,7 @@ class DefultController extends Controller
     }
     public function expired(){
         $medication = Medication::where('expiry_date' , '<=',  Carbon::now())->get();
+    // $medication = Medication::where('id','=', 25)->get();
         // dd($medication[0]->stock);
         return view('other.expired', [
             'expired' => $medication

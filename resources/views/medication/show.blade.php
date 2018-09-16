@@ -42,12 +42,13 @@
                                             <tr>
 	                                        	<td>Packages Infomation</td>
 	                                        	<td>
-				
+												
 													Package type: <span class="label label-info">{{getVal($medication->Package, $medication->package_id, 'name')}}</span>
 													| Number Package: <span class="label label-warning">* {{getVal($medication, $medication->items_in_pack ,'items_in_pack')}}</span>
 													| Purchase Price: <span class="label label-success">{{getVal($medication->purchaseItem->last()== null ? null : $medication->purchaseItem->last(), $medication->purchaseItem->last(), 'purchase_items_unit_cost')}} $ </span>
 													| Selling Price: <span class="label label-danger"> {{getVal($medication, $medication->item_unit_cost, 'item_unit_cost')}} $</span>
-													| Avilable in Stock: <span class="label label-primary"> {{getVal($medication->stock, $medication->stock, 'stock_package')}} </span>
+													| Avilable in Stock: <span class="label label-primary"> {{getVal($medication->stock== null ? null : $medication->stock, $medication->stock, 'stock_package')}} </span>
+
 												</td>
 	                                        </tr>
 											<tr>

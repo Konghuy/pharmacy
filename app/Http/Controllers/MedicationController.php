@@ -120,9 +120,10 @@ class MedicationController extends Controller
     }
     public function show($id)
     {
-        $medication = Medication::find($id);
+         $medication = Medication::where('id', $id)->first();
+        //$medication = Medication::where('expiry_date' , '<=',  Carbon::now())->get();
         $package = Packages::all();
-        // dd($package[$medication->sub_items_in_item_package_id]);
+        // dd($medication->stock);
         return view('medication.show', [
             'medication' => $medication,
             'packages' => $package

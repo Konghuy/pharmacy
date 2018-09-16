@@ -107,14 +107,8 @@ $(document).ready(function(){
             if($(".no-records-found").length == 0){
                 // console.log('hello');
                 var product_id = getData($('input[name="id[]"]'));  
+                var count_id = $('input[name="id[]"]').toArray().length;
                 // var countID = product_id.lenght;
-                console.log(product_id);
-                console.log( jQuery.type(product_id));
-                x = 0;         
-            }
-            else{
-                x = 1;
-                alert('Hello');
             }
         }
         var query = $(this).val();
@@ -124,28 +118,20 @@ $(document).ready(function(){
                 url:"{{route('pos.fetch')}}",
                 method:"POST",
                 dataType: 'json',
-                data:{query:query, _token: _token},
+                data:{query:query, _token: _token, product_id: product_id, count_id: count_id},
                 success:function(data){
+                    console.log(data);
                      $('#medicationList').fadeIn();
                       var str = '<ul class="mydd">';
                         $.each( data, function( keys, values ) {
                             $.each( values, function( key, value ) {
-                                // if(key=="id"){
-                                //      for(i=0; i<product_id.length; i++){
-                                //          if(values !== product_id[i]){
-                                //             x = 1;
-                                //          }
-                                //      }
-                                // if(x == 1){
-                                    if(key=="pro_code"){
-                                                str += '<li class="lst"><a href="#">' + value;
-                                            }
-                                            if(key=="pro_name"){
-                                                str +=  '-' + value + '</a></li>';
-                                                '{{csrf_field()}}'
-                                            }
-                                // }
-                                // }
+                                        if(key=="pro_code"){
+                                                    str += '<li class="lst"><a href="#">' + value;
+                                                }
+                                                if(key=="pro_name"){
+                                                    str +=  '-' + value + '</a></li>';
+                                                    '{{csrf_field()}}'
+                                                }
                                 
                             })
                         })
