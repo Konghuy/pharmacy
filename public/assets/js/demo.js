@@ -539,14 +539,14 @@ demo = {
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonText: 'Yes, delete it!',
                     buttonsStyling: false
-                }).then(function() {
-                  swal({
-                    title: 'Deleted!',
-                    text: 'Your file has been deleted.',
-                    type: 'success',
-                    confirmButtonClass: "btn btn-success btn-fill",
-                    buttonsStyling: false
-                    })
+                // }).then(function() {
+                //   swal({
+                //     title: 'Deleted!',
+                //     text: 'Your file has been deleted.',
+                //     type: 'success',
+                //     confirmButtonClass: "btn btn-success btn-fill",
+                //     buttonsStyling: false
+                //     })
                 });
     	}else if(type == 'warning-message-and-cancel'){
             swal({
