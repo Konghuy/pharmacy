@@ -47,19 +47,19 @@
 													| Number Package: <span class="label label-warning">* {{getVal($medication, $medication->items_in_pack ,'items_in_pack')}}</span>
 													| Purchase Price: <span class="label label-success">{{getVal($medication->purchaseItem->last()== null ? null : $medication->purchaseItem->last(), $medication->purchaseItem->last(), 'purchase_items_unit_cost')}} $ </span>
 													| Selling Price: <span class="label label-danger"> {{getVal($medication, $medication->item_unit_cost, 'item_unit_cost')}} $</span>
-													| Avilable in Stock: <span class="label label-primary"> {{getVal($medication->stock== null ? null : $medication->stock, $medication->stock, 'stock_package')}} </span>
+													<!-- | Avilable in Stock: <span class="label label-primary"> {{getVal($medication->stock== null ? null : $medication->stock, $medication->stock, 'stock_package')}} </span> -->
 
 												</td>
 	                                        </tr>
 											<tr>
 	                                        	<td>Item Infomation</td>
 	                                        	<td>
-
+												
 												Item type: <span class="label label-info">{{getVal($medication->items_in_pack_package_id == null ? null : $packages[$medication->items_in_pack_package_id], $medication->items_in_pack_package_id, 'name')}}</span>
 													| Number Item in Package: <span class="label label-warning">* {{getVal($medication, $medication->sub_items_in_item, 'sub_items_in_item')}}</span>
 													| Purchase Price: <span class="label label-success">{{getVal($medication->purchaseItem->last(), $medication->purchaseItem->last() , 'purchase_sub_items_unit_cost')}} $ </span>
 													| Selling Price: <span class="label label-danger"> {{getVal($medication, $medication->sub_item_unit_cost, 'sub_item_unit_cost')}} $</span>
-													| Avilable in Stock: <span class="label label-primary"> {{getVal($medication->stock, $medication->stock, 'stock_item')}} </span>
+													<!-- | Avilable in Stock: <span class="label label-primary"> {{getVal($medication->stock, $medication->stock, 'stock_item')}} </span> -->
 												</td>
 	                                        </tr>
 											<tr>
@@ -70,7 +70,7 @@
 													| Number sub-item in Item: <span class="label label-warning">* {{getVal($medication, $medication->qty, 'qty')}}</span>
 													| Purchase Price: <span class="label label-success">{{getVal($medication->purchaseItem->last(), $medication->purchaseItem->last(), 'purchase_price')}} $ </span>
 													| Selling Price: <span class="label label-danger"> {{getVal($medication, $medication->price, 'price')}} $</span>
-													| Avilable in Stock: <span class="label label-primary"> {{getVal($medication->stock, $medication->stock, 'stock_subItem')}} </span>
+													<!-- | Avilable in Stock: <span class="label label-primary"> {{getVal($medication->stock, $medication->stock, 'stock_subItem')}} </span> -->
 												</td>
 	                                        </tr>
 											<tr>

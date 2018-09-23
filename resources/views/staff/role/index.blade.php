@@ -47,9 +47,8 @@
                                         <td>{{$role->name}}</td>
                                         <td>{{$role->description}}</td>
                                         <td>
-                                            <a href="/role/{{$role->id}}" class="btn btn-simple btn-info btn-icon"><i class="ti-image"></i></a>
                                             <a href="/role/{{$role->id}}/edit" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
-                                            <a href="/role/{{$role->id}}" class="btn btn-simple btn-danger btn-icon remove"><i class="ti-close"></i></a>
+                                            <button  type='button' class="btn btn-simple btn-danger btn-icon remove btn_delete" id="{{$role->id}}" onclick="demo.showSwal('warning-message-and-confirmation')"><i class="ti-close"></i></button> 
                                         </td>
                                     </tr>
                                     @endforeach
@@ -84,26 +83,15 @@
 
 
         var table = $('#datatables').DataTable();
-        //  // Edit record
-        //  table.on( 'click', '.edit', function () {
-        //     $tr = $(this).closest('tr');
 
-        //     var data = table.row($tr).data();
-        //     alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
-        //  } );
+        var id_delete;
+        $("button.btn_delete").click(function(){
+            id_delete = $(this).attr("id");
 
-        //  // Delete a record
-        //  table.on( 'click', '.remove', function (e) {
-        //     $tr = $(this).closest('tr');
-        //     table.row($tr).remove().draw();
-        //     e.preventDefault();
-        //  } );
-
-        // //Like record
-        // table.on( 'click', '.like', function () {
-        //     alert('You clicked on Like button');
-        //  });
-
+            $("button.swal2-confirm").click(function(){
+                location.href = "/role/delete/" + id_delete;
+            });
+        });
     });
 </script>
 

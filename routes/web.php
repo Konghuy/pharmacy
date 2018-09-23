@@ -28,8 +28,10 @@ Route::get('/showUser', function () {
 });
 
 Route::resource('supplier','SupplierController');
+Route::GET('/supplier/delete/{id}','SupplierController@destroy');
 
 Route::resource('role','RoleController');
+Route::GET('/role/delete/{id}','RoleController@destroy');
 
 Route::resource('category','CategoryController');
 

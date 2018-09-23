@@ -56,9 +56,8 @@
                                         <td>{{$supplier->phone}}</td>
                                         <td>{{$supplier->email}}</td>
                                         <td>
-                                            <a href="/supplier/{{$supplier->id}}" class="btn btn-simple btn-info btn-icon"><i class="ti-image"></i></a>
                                             <a href="/supplier/{{$supplier->id}}/edit" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
-                                            <a href="/supplier/{{$supplier->id}}" class="btn btn-simple btn-danger btn-icon remove"><i class="ti-close"></i></a>
+                                            <button  type='button' class="btn btn-simple btn-danger btn-icon remove btn_delete" id="{{$supplier->id}}" onclick="demo.showSwal('warning-message-and-confirmation')"><i class="ti-close"></i></button>  
                                         </td>
                                     </tr>
                                     @endforeach
@@ -90,29 +89,17 @@
                 searchPlaceholder: "Search records",
             }
         });
-
-
         var table = $('#datatables').DataTable();
-        //  // Edit record
-        //  table.on( 'click', '.edit', function () {
-        //     $tr = $(this).closest('tr');
+    });
 
-        //     var data = table.row($tr).data();
-        //     alert( 'You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.' );
-        //  } );
 
-        //  // Delete a record
-        //  table.on( 'click', '.remove', function (e) {
-        //     $tr = $(this).closest('tr');
-        //     table.row($tr).remove().draw();
-        //     e.preventDefault();
-        //  } );
+    var id_delete;
+    $("button.btn_delete").click(function(){
+        id_delete = $(this).attr("id");
 
-        // //Like record
-        // table.on( 'click', '.like', function () {
-        //     alert('You clicked on Like button');
-        //  });
-
+        $("button.swal2-confirm").click(function(){
+            location.href = "/supplier/delete/" + id_delete;
+        });
     });
 </script>
 
